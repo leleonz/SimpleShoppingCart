@@ -1,5 +1,5 @@
 # Simple Shopping Cart
-This is an assignment to create a simple shopping cart system for a retail store selling clothes, e.g. T-shirts and Jeans. In this project only minimal design, feature and domain modelling will be considered, to satisfy the [focuses use cases](#focused-use-cases).
+This is an assignment to create a simple shopping cart system for a retail store selling clothes, e.g. T-shirts and Jeans. In this project only minimal design, feature and domain modelling will be considered, to satisfy the [focused use cases](#focused-use-cases).
 
 ## Focused Use Cases 
 1. Able to add products into shopping cart.
