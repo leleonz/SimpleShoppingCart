@@ -43,7 +43,7 @@ namespace SimpleShoppingCart.Domains
             Quantity = quantity;
             UnitPrice = unitPrice;
             Options = options;
-            //Set subtotal during creation to prevent recalculation when querying
+            // Set subtotal during creation to prevent recalculation when querying
             SubTotalPrice = quantity * unitPrice;
         }
 

@@ -51,9 +51,13 @@ namespace SimpleShoppingCart.Domains
             return TotalPrice;
         } 
 
+        /* Price calculation is assumed to be responsibility of shopping cart in this simple context.
+           In the case of having possibility to change calculation formula, 
+           calculate price method can be extracted to another Calculator interface, 
+           Shopping cart model can then be constructed using factory together with chosen calculator class. */
         private void CalculateTotalPrice()
         {
-            //Set total price to prevent recalculation when querying
+            // Set total price to prevent recalculation when querying
             TotalPrice = Items.Sum(item => item.SubTotalPrice);
         }
 

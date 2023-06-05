@@ -7,7 +7,7 @@
     {
         protected SelfValidateDomainModel(params object[] list)
         {
-            //Responsibility to ensure a valid domain model is within itself. See more in README.md
+            // Responsibility to ensure a valid domain model is within itself. See more in README.md
             Validate(list);
         }
 
