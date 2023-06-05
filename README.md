@@ -1,7 +1,7 @@
 # Simple Shopping Cart
-This is an assignment to create a simple shopping cart system for a retail store selling clothes, e.g. T-shirts and Jeans. In this project, we will only be including minimal design, feature and domain modelling, in order to satisfy the [main focuses use cases](#main-focused-use-cases).
+This is an assignment to create a simple shopping cart system for a retail store selling clothes, e.g. T-shirts and Jeans. In this project only minimal design, feature and domain modelling will be considered, to satisfy the [focuses use cases](#focused-use-cases).
 
-## Main Focused Use Cases: 
+## Focused Use Cases 
 1. Able to add products into shopping cart.
 2. Able to view total sum of products added in shopping cart.
 
@@ -18,10 +18,20 @@ This is an assignment to create a simple shopping cart system for a retail store
 **Cart Item** 
 : Serve as record added into shopping cart. No public method exposed.
 
-## Domain Modelling Concerns
-How/ where should we validate and ensure valid domain model creation/ initialization?
+## Domain Modelling Concerns and Decision
+### Domain Model Validation
+**Problem:** How/ where should we validate and ensure valid domain model creation/ initialization?
 There are **TWO** schools of thought: 
 1. Domain model should always be valid - by ensuring validation is done before creation, e.g. using Factory pattern
 2. Domain model should ensure itself to be valid - it is the responsibility of domain model to do self validation, e.g. add validation logic in ctor
 
-In our case here, we have choosen ✔️ 2. Domain model should ensure itself to be valid. By extracting the validation logic in its own method and using base abstract class, _SelfValidationDomainModel.cs_ to enforce running _Validation_ method for every constructor calls.
+**Decision:** 
+- In this case, the chosen way is ✔️ 2. Domain model should ensure itself to be valid. 
+- By extracting the validation logic in its own method and using base abstract class, _SelfValidationDomainModel.cs_ to enforce running _Validation_ method for every constructor calls.
+
+### Shopping Cart Price Calculation
+**Problem:** Is it the responsibility of shopping cart to calculate total price of added items/ products?
+
+**Decision:** 
+- To make this context simple, it is decided to have shopping cart to be responsibile for the price calculation. 
+- In the future, if there are different formula of calculation, the calculation method can be extracted to Calculator interface. If such decision is being made, it might be a good idea to consider using Factory to create shopping cart with selected calculator class.
