@@ -71,6 +71,60 @@ namespace SimpleShoppingCart.Tests.Domain.Tests.ShoppingCartTests
             var mockCartItems = CreateMockCartItems(requestedValidItems, requestedNullItems);
 
             mockShoppingCart.AddItems(mockCartItems);
+            var actual = mockShoppingCart.TotalCartPrice;
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [DataTestMethod]
+        [DataRow(3, 20)]
+        [DataRow(6, 40)]
+        [DataRow(7, 50)]
+        [DataRow(9, 60)]
+        public void Buy3Jeans_ShouldApplyDiscountWithPriceOf2(int numberOfJeans, double expected)
+        {
+            var mockShoppingCart = CreateMockShoppingCart();
+            var mockCartItems = new List<CartItem>
+            {
+                new CartItem("1", "Jeans", numberOfJeans, 10)
+            };
+            var mockCoupons = new List<Coupon>
+            {
+                new Coupon("jeans", 3, 1)
+            };
+
+            mockShoppingCart.AddItems(mockCartItems);
+            mockShoppingCart.AddCoupon(mockCoupons);
+            var actual = mockShoppingCart.TotalPrice;
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [DataTestMethod]
+        [DataRow(1, 1, 30)]
+        [DataRow(2, 2, 45)]
+        [DataRow(3, 3, 75)]
+        [DataRow(4, 4, 90)]
+        [DataRow(2, 1, 50)]
+        public void BySetsOfTShirtAndJeans_ShouldApplyDiscountToSecondSet(int numberOfJeans, int numberOfTShirt, double expected)
+        {
+            var mockShoppingCart = CreateMockShoppingCart();
+            var mockCartItems = new List<CartItem>
+            {
+                new CartItem("1", "Jeans", numberOfJeans, 20),
+                new CartItem("1", "Tshirt", numberOfTShirt, 10)
+            };
+            var mockCoupon = new SetDiscountCoupon(2, 0.25);
+            mockCoupon.SetDiscountItemSet("jeans");
+            mockCoupon.SetDiscountItemSet("tshirt");
+            var mockCoupons = new List<SetDiscountCoupon>
+            {
+                mockCoupon
+            };
+
+            mockShoppingCart.AddCoupon(mockCoupons);
+            mockShoppingCart.AddItems(mockCartItems);
             var actual = mockShoppingCart.TotalPrice;
 
             Assert.AreEqual(expected, actual);

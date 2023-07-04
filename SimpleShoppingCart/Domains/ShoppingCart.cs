@@ -14,6 +14,12 @@ namespace SimpleShoppingCart.Domains
 
         public IList<CartItem> Items { get; private set; }
 
+        public IList<IDiscountableCoupon> Coupons { get; private set; }
+
+        public double TotalCartPrice { get; private set; }
+
+        public double DiscountedPrice { get; private set; }
+
         public double TotalPrice { get; private set; }
 
         /// <summary>
@@ -24,6 +30,9 @@ namespace SimpleShoppingCart.Domains
         {
             CustomerReferenceId = customerReferenceId;
             Items = new List<CartItem>();
+            Coupons = new List<IDiscountableCoupon>();
+            TotalCartPrice = 0;
+            DiscountedPrice = 0;
             TotalPrice = 0;
         }
 
@@ -45,11 +54,22 @@ namespace SimpleShoppingCart.Domains
                         Items.Add(item);
                     }
                     CalculateTotalPrice();
+                    CalculateDiscountedPrice();
                 }
             }
-            
+
+            TotalPrice = TotalCartPrice - DiscountedPrice;
+
             return TotalPrice;
         } 
+
+        public void AddCoupon(IEnumerable<IDiscountableCoupon> coupons)
+        {
+            foreach(var coupon in coupons)
+            {
+                Coupons.Add(coupon);
+            }
+        }
 
         /* Price calculation is assumed to be responsibility of shopping cart in this simple context.
            In the case of having possibility to change calculation formula, 
@@ -58,7 +78,15 @@ namespace SimpleShoppingCart.Domains
         private void CalculateTotalPrice()
         {
             // Set total price to prevent recalculation when querying
-            TotalPrice = Items.Sum(item => item.SubTotalPrice);
+            TotalCartPrice = Items.Sum(item => item.SubTotalPrice);
+        }
+
+        private void CalculateDiscountedPrice()
+        {
+            foreach (var coupon in Coupons)
+            {
+                DiscountedPrice += coupon.CalculateDiscountedPrice(Items);
+            }
         }
 
         protected override void Validate(params object[] list)
