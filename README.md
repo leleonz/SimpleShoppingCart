@@ -4,6 +4,7 @@ This is an assignment to create a simple shopping cart system for a retail store
 ## Focused Use Cases 
 1. Able to add products into shopping cart.
 2. Able to view total sum of products added in shopping cart.
+3. Allow adding coupons for getting various discount (e.g. Buy X Free Y, Buy X sets and get Y% discount on Z set)
 
 ## Domain Models
 ### Entity
@@ -35,3 +36,9 @@ There are **TWO** schools of thought:
 **Decision:** 
 - To make this context simple, it is decided to have shopping cart to be responsibile for the price calculation. 
 - In the future, if there are different formula of calculation, the calculation method can be extracted to Calculator interface. If such decision is being made, it might be a good idea to consider using Factory to create shopping cart with selected calculator class.
+
+  ## Things to be improved
+  ### Discount/ Coupon Setup
+  1. Introduced interface _IDiscountableCoupon_ with calculate discounted amount can be renamed as _IDiscountableItem_
+  2. Ideally _Coupon_ should be an abstract class implementing _IDiscountableCoupon_. In the future there can be different kinds of coupon (e.g. BuyXFreeYCoupon, BuySetsGetXPercentDiscountCoupon, etc.) inherit this abstract class and override with different formula
+  3. Add the omitted self validation check in all coupon classes.
