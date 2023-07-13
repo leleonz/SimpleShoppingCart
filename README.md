@@ -1,5 +1,5 @@
 # Simple Shopping Cart
-This is an assignment to create a simple shopping cart system for a retail store selling clothes, e.g. T-shirts and Jeans. In this project only minimal design, feature and domain modelling will be considered, to satisfy the [focused use cases](#focused-use-cases).
+This is to create a simple shopping cart system for a retail store selling clothes, e.g. T-shirts and Jeans. In this project only minimal design, feature and domain modelling will be considered, to satisfy the [focused use cases](#focused-use-cases).
 
 ## Focused Use Cases 
 1. Able to add products into shopping cart.
@@ -23,8 +23,8 @@ This is an assignment to create a simple shopping cart system for a retail store
 ### Domain Model Validation
 **Problem:** How/ where should we validate and ensure valid domain model creation/ initialization?
 There are **TWO** schools of thought: 
-1. Domain model should always be valid - by ensuring validation is done before creation, e.g. using Factory pattern
-2. Domain model should ensure itself to be valid - it is the responsibility of domain model to do self validation, e.g. add validation logic in ctor
+1. Domain model should always be valid - by ensuring validation is done before creation, e.g. using Factory pattern.
+2. Domain model should ensure itself to be valid - it is the responsibility of domain model to do self validation, e.g. add validation logic in ctor.
 
 **Decision:** 
 - In this case, the chosen way is ✔️ 2. Domain model should ensure itself to be valid. 
@@ -39,7 +39,8 @@ There are **TWO** schools of thought:
 
 ## Things to be improved
 ### Discount/ Coupon Setup
-1. Introduced interface _IDiscountableCoupon_ with calculate discounted amount can be renamed as _IDiscountableItem_
-2. Ideally _Coupon_ should be an abstract class implementing _IDiscountableCoupon_. In the future there can be different kinds of coupon (e.g. BuyXFreeYCoupon, BuySetsGetXPercentDiscountCoupon, etc.) inherit this abstract class and override with different formula
+1. Introduced interface _IDiscountableCoupon_ with calculate discounted amount can be renamed as _IDiscountableItem_.
+2. Ideally _Coupon_ should be an abstract class implementing _IDiscountableCoupon_. In the future there can be different kinds of coupon (e.g. BuyXFreeYCoupon, BuySetsGetXPercentDiscountCoupon, etc.) inherit this abstract class and override with different formula.
 3. Add the omitted self validation check in all coupon classes.
-4. Group discount or coupon into dedicated folder. 
+4. Group discount or coupon into dedicated folder.
+5. Current code will calculate coupon based on FIFO, adding a order/ priority field to coupon can be a good idea. Another way is to have the ability to calculate the lowest price for customers.
